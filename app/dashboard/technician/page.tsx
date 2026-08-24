@@ -107,10 +107,15 @@ export default function TechnicianDashboardPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <Link href="/dashboard/technician/bookings">
+            <Button size="sm" variant="outline" className="gap-1.5 text-xs">
+              <Briefcase className="h-4 w-4" /> Manage Bookings
+            </Button>
+          </Link>
           <Link href="/dashboard/technician/availability">
             <Button size="sm" variant="outline" className="gap-1.5 text-xs">
-              <Calendar className="h-4 w-4" /> Availability Scheduler
+              <Calendar className="h-4 w-4" /> Availability
             </Button>
           </Link>
           <Link href="/dashboard/technician/profile">

@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/auth-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Wrench, Mail, Lock, ArrowRight, ShieldAlert } from "lucide-react";
+import { Wrench, Mail, Lock, ArrowRight, ShieldAlert, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 
 function LoginForm() {
@@ -17,6 +17,7 @@ function LoginForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -98,18 +99,30 @@ function LoginForm() {
             <div className="relative">
               <Lock className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
-                className="pl-9"
+                className="pl-9 pr-10"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
                 required
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-2.5 text-muted-foreground hover:text-foreground focus:outline-none transition-colors"
+                title={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4 text-primary" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </button>
             </div>
           </div>
 
-          <Button type="submit" className="w-full gap-2 mt-2" disabled={loading}>
+          <Button type="submit" className="w-full gap-2 mt-2 font-semibold" disabled={loading}>
             {loading ? "Signing in..." : "Sign In"}
             <ArrowRight className="h-4 w-4" />
           </Button>
@@ -126,7 +139,7 @@ function LoginForm() {
               type="button"
               variant="outline"
               size="xs"
-              className="text-[11px] h-7"
+              className="text-[11px] h-7 font-medium"
               onClick={() => quickFill("customer@example.com")}
             >
               Customer
@@ -135,7 +148,7 @@ function LoginForm() {
               type="button"
               variant="outline"
               size="xs"
-              className="text-[11px] h-7"
+              className="text-[11px] h-7 font-medium"
               onClick={() => quickFill("technician@example.com")}
             >
               Technician
@@ -144,7 +157,7 @@ function LoginForm() {
               type="button"
               variant="outline"
               size="xs"
-              className="text-[11px] h-7"
+              className="text-[11px] h-7 font-medium"
               onClick={() => quickFill("admin@example.com")}
             >
               Admin

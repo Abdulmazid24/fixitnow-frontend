@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/auth-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Wrench, Mail, Lock, User, Phone, MapPin, DollarSign, Briefcase, UserCheck, HardHat } from "lucide-react";
+import { Wrench, Mail, Lock, User, Phone, MapPin, DollarSign, Briefcase, UserCheck, HardHat, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 
 export default function RegisterPage() {
@@ -17,6 +17,7 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [phone, setPhone] = useState("");
 
   // Technician Specific State
@@ -155,14 +156,26 @@ export default function RegisterPage() {
                 <div className="relative">
                   <Lock className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
-                    className="pl-9"
+                    className="pl-9 pr-10"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={loading}
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-2.5 text-muted-foreground hover:text-foreground focus:outline-none transition-colors"
+                    title={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4 text-primary" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
                 </div>
               </div>
 
@@ -263,7 +276,7 @@ export default function RegisterPage() {
               </div>
             )}
 
-            <Button type="submit" className="w-full mt-4" disabled={loading}>
+            <Button type="submit" className="w-full mt-4 font-semibold" disabled={loading}>
               {loading ? "Creating Account..." : `Register as ${role === "CUSTOMER" ? "Customer" : "Technician"}`}
             </Button>
           </form>

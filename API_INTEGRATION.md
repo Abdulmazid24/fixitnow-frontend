@@ -30,7 +30,7 @@ This document maps frontend pages and UI components to their corresponding backe
 | `/technicians/[id]` Modal | Create Booking Request | `/api/bookings` | `POST` | Yes (CUSTOMER) |
 | `/dashboard/customer` | Customer Booking History | `/api/bookings` | `GET` | Yes (CUSTOMER) |
 | `/dashboard/customer` | Cancel Booking Request | `/api/bookings/:id/cancel` | `PATCH` | Yes (CUSTOMER) |
-| `/dashboard/customer/bookings/[id]/pay` | Initiate Stripe Checkout | `/api/payments/create-checkout-session` | `POST` | Yes (CUSTOMER) |
+| `/dashboard/customer/bookings/[id]/pay` | Initiate Payment Checkout | `/api/payments/create` | `POST` | Yes (CUSTOMER) |
 | `/dashboard/customer` Modal | Submit Service Review | `/api/reviews` | `POST` | Yes (CUSTOMER) |
 
 ---
@@ -39,7 +39,7 @@ This document maps frontend pages and UI components to their corresponding backe
 | Next.js Route / Component | Action / Feature | Backend API Endpoint | HTTP Method | Auth Required |
 |---|---|---|---|---|
 | `/dashboard/technician` | Incoming Bookings Management | `/api/technician/bookings` | `GET` | Yes (TECHNICIAN) |
-| `/dashboard/technician` | Accept / Decline / Complete Booking | `/api/technician/bookings/:id/status` | `PATCH` | Yes (TECHNICIAN) |
+| `/dashboard/technician` | Accept / Decline / Complete Booking | `/api/technician/bookings/:id` | `PATCH` | Yes (TECHNICIAN) |
 | `/dashboard/technician/availability` | Manage Availability Slots | `/api/technician/availability` | `GET` & `POST` | Yes (TECHNICIAN) |
 
 ---

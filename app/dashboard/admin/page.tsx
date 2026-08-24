@@ -73,7 +73,7 @@ export default function AdminDashboardPage() {
             <DollarSign className="h-4 w-4 text-purple-500" />
           </div>
           <div className="text-2xl font-extrabold text-foreground">$48,250</div>
-          <span className="text-[11px] text-purple-600 font-medium">Stripe / SSLCommerz Volume</span>
+          <span className="text-[11px] text-purple-600 font-medium">Stripe Payment Volume</span>
         </div>
 
         <div className="p-5 rounded-2xl border border-border bg-card space-y-2 shadow-sm">

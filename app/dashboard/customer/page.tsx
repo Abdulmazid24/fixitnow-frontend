@@ -45,7 +45,7 @@ interface PaymentRecord {
   serviceTitle: string;
   technicianName: string;
   amount: number;
-  method: "Stripe" | "SSLCommerz";
+  method: "Stripe";
   transactionId: string;
   paidAt: string;
   status: "SUCCESS" | "REFUNDED";
@@ -106,8 +106,8 @@ const MOCK_PAYMENTS: PaymentRecord[] = [
     serviceTitle: "Bathroom Tile Repair",
     technicianName: "Jordan Lee",
     amount: 120,
-    method: "SSLCommerz",
-    transactionId: "SSLCZ_TXN_882934",
+    method: "Stripe",
+    transactionId: "txn_1Q2xMNRs7vLb4WpC",
     paidAt: "2026-08-10 11:42 AM",
     status: "SUCCESS",
   },

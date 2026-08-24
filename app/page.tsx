@@ -360,7 +360,7 @@ export default function HomePage() {
             {
               step: "03",
               title: "Pay & Review",
-              desc: "After technician accepts, pay securely via Stripe or SSLCommerz and leave a rating post-job.",
+              desc: "After technician accepts, pay securely via Stripe and leave a rating post-job.",
               color: "bg-emerald-500 text-white",
             },
           ].map(({ step, title, desc, color }) => (

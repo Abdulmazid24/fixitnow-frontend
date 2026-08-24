@@ -166,7 +166,7 @@ export default function TechnicianDetailPage() {
               <span>FixItNow Guarantee Included</span>
             </div>
             <p className="text-xs text-muted-foreground">
-              All bookings placed through FixItNow feature verified pricing, secure Stripe/SSLCommerz checkout upon job acceptance, and customer satisfaction assurance.
+              All bookings placed through FixItNow feature verified pricing, secure Stripe checkout upon job acceptance, and customer satisfaction assurance.
             </p>
           </div>
         </div>

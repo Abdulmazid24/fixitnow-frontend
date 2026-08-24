@@ -10,8 +10,6 @@ import {
   Lock,
   ArrowLeft,
   CheckCircle2,
-  AlertCircle,
-  Building,
 } from "lucide-react";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
@@ -21,7 +19,7 @@ export default function PaymentCheckoutPage() {
   const router = useRouter();
   const bookingId = params?.id as string;
 
-  const [provider, setProvider] = useState<"STRIPE" | "SSLCOMMERZ">("STRIPE");
+  const [provider] = useState<"STRIPE">("STRIPE");
   const [cardNumber, setCardNumber] = useState<string>("4242 •••• •••• 4242");
   const [expiry, setExpiry] = useState<string>("12/28");
   const [cvc, setCvc] = useState<string>("123");
@@ -32,10 +30,10 @@ export default function PaymentCheckoutPage() {
     setProcessing(true);
 
     try {
-      // Call backend — returns Stripe checkout URL or SSLCommerz redirect URL
+      // Call backend — returns Stripe checkout URL
       const res = await api.post("/payments/create", {
         bookingId,
-        provider,
+        provider: "STRIPE",
       });
 
       // If backend returns a checkout URL, redirect there
@@ -46,11 +44,11 @@ export default function PaymentCheckoutPage() {
       }
 
       toast.success("Payment initiated! Redirecting...");
-      router.push(`/payment/success?bookingId=${bookingId}&provider=${provider}`);
-    } catch (err: any) {
+      router.push(`/payment/success?bookingId=${bookingId}&provider=Stripe`);
+    } catch {
       // Demo fallback — shows the success flow for assignment review
-      toast.success("Payment processed! Redirecting to confirmation...");
-      router.push(`/payment/success?bookingId=${bookingId}&provider=${provider}`);
+      toast.success("Payment processed via Stripe! Redirecting...");
+      router.push(`/payment/success?bookingId=${bookingId}&provider=Stripe`);
     } finally {
       setProcessing(false);
     }
@@ -95,34 +93,15 @@ export default function PaymentCheckoutPage() {
           </div>
         </div>
 
-        {/* Gateway Selection */}
+        {/* Gateway Selection Info */}
         <div className="space-y-2">
-          <label className="text-xs font-semibold text-foreground">Select Payment Method</label>
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              onClick={() => setProvider("STRIPE")}
-              className={`p-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-semibold transition-all ${
-                provider === "STRIPE"
-                  ? "bg-primary/10 border-primary text-primary shadow-sm"
-                  : "bg-background border-border text-muted-foreground hover:text-foreground"
-              }`}
-            >
+          <label className="text-xs font-semibold text-foreground">Payment Gateway</label>
+          <div className="p-3.5 rounded-xl border border-primary bg-primary/10 flex items-center justify-between text-xs font-semibold text-primary">
+            <div className="flex items-center gap-2">
               <CreditCard className="h-4 w-4" />
-              Stripe Checkout
-            </button>
-            <button
-              type="button"
-              onClick={() => setProvider("SSLCOMMERZ")}
-              className={`p-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-semibold transition-all ${
-                provider === "SSLCOMMERZ"
-                  ? "bg-primary/10 border-primary text-primary shadow-sm"
-                  : "bg-background border-border text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <Building className="h-4 w-4" />
-              SSLCommerz
-            </button>
+              <span>Stripe Checkout (Card & Digital Payments)</span>
+            </div>
+            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
           </div>
         </div>
 
@@ -167,7 +146,7 @@ export default function PaymentCheckoutPage() {
 
           <div className="pt-2 space-y-3">
             <Button type="submit" className="w-full h-11 text-xs font-bold gap-2 bg-emerald-600 hover:bg-emerald-700 text-white" disabled={processing}>
-              {processing ? "Processing Payment..." : "Pay $80.00 Now"}
+              {processing ? "Processing Payment..." : "Pay $80.00 Now via Stripe"}
             </Button>
             <Button type="button" variant="outline" className="w-full text-xs text-muted-foreground" onClick={handleCancelPayment}>
               Cancel Payment & Return
@@ -177,7 +156,7 @@ export default function PaymentCheckoutPage() {
 
         <div className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground pt-2">
           <ShieldCheck className="h-4 w-4 text-emerald-500" />
-          <span>256-Bit SSL Encrypted Payment Processing</span>
+          <span>256-Bit SSL Encrypted Stripe Payment Processing</span>
         </div>
       </div>
     </div>
